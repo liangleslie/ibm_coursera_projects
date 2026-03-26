@@ -1,19 +1,14 @@
-"""
-This module provides a Flask-based web server for emotion detection.
-It interfaces with the Watson NLP library to analyze text provided by users
-via a web interface.
-"""
 from flask import Flask, render_template, request
-# pylint: disable=import-error
-from emotion_detection import emotion_detector
+from EmotionDetection import emotion_detector
 
 app = Flask(__name__)
 
 @app.route("/emotionDetector")
 def sent_analyzer():
     """
-    Analyzes the text received from the frontend via a GET request.
-    Returns a formatted string of emotion scores or an error message.
+    Analyzes the text received from the frontend.
+    If input is invalid, returns an error message.
+    Otherwise, returns the formatted emotion scores and dominant emotion.
     """
     # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
@@ -45,7 +40,7 @@ def sent_analyzer():
 @app.route("/")
 def render_index_page():
     """
-    Renders the main application page (index.html).
+    Renders the main application page.
     """
     return render_template('index.html')
 
